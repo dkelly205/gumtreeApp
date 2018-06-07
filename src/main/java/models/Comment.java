@@ -5,7 +5,7 @@ import models.Advert;
 import javax.persistence.*;
 
 @Entity
-@JoinTable(name="comments")
+@Table(name="comments")
 public class Comment {
 
     private int id;
