@@ -2,6 +2,10 @@ package models;
 
 import models.Advert;
 
+import javax.persistence.*;
+
+@Entity
+@JoinTable(name="comments")
 public class Comment {
 
     private int id;
@@ -18,6 +22,9 @@ public class Comment {
         this.advert = advert;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     public int getId() {
         return id;
     }
@@ -26,6 +33,9 @@ public class Comment {
         this.id = id;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -34,6 +44,7 @@ public class Comment {
         this.user = user;
     }
 
+    @Column(name="text")
     public String getText() {
         return text;
     }
@@ -42,6 +53,9 @@ public class Comment {
         this.text = text;
     }
 
+
+    @ManyToOne
+    @JoinColumn(name="advert_id", nullable = false)
     public Advert getAdvert() {
         return advert;
     }

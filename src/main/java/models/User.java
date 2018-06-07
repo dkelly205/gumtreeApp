@@ -3,9 +3,13 @@ package models;
 import models.Advert;
 import models.Comment;
 
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="users")
 public class User {
 
     private int id;
@@ -24,6 +28,9 @@ public class User {
         this.favourites = new ArrayList<>();
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     public int getId() {
         return id;
     }
@@ -32,6 +39,7 @@ public class User {
         this.id = id;
     }
 
+    @Column(name="name")
     public String getName() {
         return name;
     }
@@ -40,6 +48,7 @@ public class User {
         this.name = name;
     }
 
+    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     public List<Advert> getAdverts() {
         return adverts;
     }
@@ -48,6 +57,7 @@ public class User {
         this.adverts = adverts;
     }
 
+    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
     public List<Comment> getComments() {
         return comments;
     }
@@ -56,6 +66,7 @@ public class User {
         this.comments = comments;
     }
 
+    @ManyToMany(mappedBy="favouriters")
     public List<Advert> getFavourites() {
         return favourites;
     }

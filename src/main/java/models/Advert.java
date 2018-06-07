@@ -1,8 +1,11 @@
 package models;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name="adverts")
 public class Advert {
 
     private int id;
@@ -31,6 +34,9 @@ public class Advert {
         this.favouriters = new ArrayList<>();
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="id")
     public int getId() {
         return id;
     }
@@ -39,6 +45,7 @@ public class Advert {
         this.id = id;
     }
 
+    @Column(name="title")
     public String getTitle() {
         return title;
     }
@@ -47,6 +54,7 @@ public class Advert {
         this.title = title;
     }
 
+    @Column(name="description")
     public String getDescription() {
         return description;
     }
@@ -55,6 +63,7 @@ public class Advert {
         this.description = description;
     }
 
+    @Column(name="price")
     public double getPrice() {
         return price;
     }
@@ -63,6 +72,7 @@ public class Advert {
         this.price = price;
     }
 
+    @Column(name="category")
     public Category getCategory() {
         return category;
     }
@@ -71,6 +81,7 @@ public class Advert {
         this.category = category;
     }
 
+    @Column(name="image")
     public String getImage() {
         return image;
     }
@@ -79,6 +90,7 @@ public class Advert {
         this.image = image;
     }
 
+    @Column(name="admission_date")
     public String getAdmission_date() {
         return admission_date;
     }
@@ -87,6 +99,8 @@ public class Advert {
         this.admission_date = admission_date;
     }
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable = false)
     public User getUser() {
         return user;
     }
@@ -95,6 +109,8 @@ public class Advert {
         this.user = user;
     }
 
+
+    @OneToMany(mappedBy = "advert")
     public List<Comment> getComments() {
         return comments;
     }
@@ -103,6 +119,10 @@ public class Advert {
         this.comments = comments;
     }
 
+    @ManyToMany
+    @JoinTable(name="favourite_adverts",
+            joinColumns = {@JoinColumn(name="advert_id", nullable=false, updatable=false)},
+            inverseJoinColumns = {@JoinColumn(name="user_id", nullable=false, updatable=false)})
     public List<User> getFavouriters() {
         return favouriters;
     }
