@@ -1,3 +1,7 @@
+package models;
+
+import models.Advert;
+
 public class Comment {
 
     private int id;

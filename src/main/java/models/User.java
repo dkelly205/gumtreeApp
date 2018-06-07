@@ -1,3 +1,8 @@
+package models;
+
+import models.Advert;
+import models.Comment;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,3 +1,6 @@
+import models.Advert;
+import models.Comment;
+import models.User;
 import org.junit.Before;
 import org.junit.Test;
 
