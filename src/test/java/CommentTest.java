@@ -1,7 +1,7 @@
 import models.Advert;
 import models.Category;
 import models.Comment;
-import models.User;
+import models.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,15 +9,15 @@ import static org.junit.Assert.assertEquals;
 
 public class CommentTest {
 
-    User user;
+    Customer customer;
     Advert advert;
     Comment comment;
 
     @Before
     public void setUp() throws Exception {
-        user = new User("Danny");
-        advert = new Advert("Bike", "BMX", 50.00, Category.SPORTS, "n/a", "01/06/2018", user);
-        comment = new Comment("Hello", user, advert);
+        customer = new Customer("Danny", "password");
+        advert = new Advert("Bike", "BMX", 50.00, Category.SPORTS, "n/a", "01/06/2018", customer);
+        comment = new Comment("Hello", customer, advert);
     }
 
     @Test
@@ -27,7 +27,7 @@ public class CommentTest {
 
     @Test
     public void hasUser() {
-        assertEquals(user, comment.getUser());
+        assertEquals(customer, comment.getCustomer());
     }
 
     @Test

@@ -1,5 +1,8 @@
 package models;
 
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,21 +18,21 @@ public class Advert {
     private Category category;
     private String image;
     private String admission_date;
-    private User user;
+    private Customer customer;
     private List<Comment> comments;
-    private List<User> favouriters;
+    private List<Customer> favouriters;
 
     public Advert() {
     }
 
-    public Advert(String title, String description, double price, Category category, String image, String admission_date, User user) {
+    public Advert(String title, String description, double price, Category category, String image, String admission_date, Customer customer) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.category = category;
         this.image = image;
         this.admission_date = admission_date;
-        this.user = user;
+        this.customer = customer;
         this.comments = new ArrayList<>();
         this.favouriters = new ArrayList<>();
     }
@@ -99,18 +102,18 @@ public class Advert {
         this.admission_date = admission_date;
     }
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
-    public User getUser() {
-        return user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="customer_id", nullable = false)
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
 
-    @OneToMany(mappedBy = "advert")
+    @OneToMany(mappedBy = "advert", orphanRemoval = true)
     public List<Comment> getComments() {
         return comments;
     }
@@ -119,15 +122,16 @@ public class Advert {
         this.comments = comments;
     }
 
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name="favourite_adverts",
             joinColumns = {@JoinColumn(name="advert_id", nullable=false, updatable=false)},
-            inverseJoinColumns = {@JoinColumn(name="user_id", nullable=false, updatable=false)})
-    public List<User> getFavouriters() {
+            inverseJoinColumns = {@JoinColumn(name="customer_id", nullable=false, updatable=false)})
+    @LazyCollection(LazyCollectionOption.FALSE)
+    public List<Customer> getFavouriters() {
         return favouriters;
     }
 
-    public void setFavouriters(List<User> favouriters) {
+    public void setFavouriters(List<Customer> favouriters) {
         this.favouriters = favouriters;
     }
 
@@ -135,8 +139,8 @@ public class Advert {
         this.comments.add(comment);
     }
 
-    public void addUserToFavouriters(User user){
-        this.favouriters.add(user);
+    public void addCustomerToFavouriters(Customer customer){
+        this.favouriters.add(customer);
     }
 
 

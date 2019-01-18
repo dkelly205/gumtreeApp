@@ -1,0 +1,25 @@
+<a href="/adverts/create">Create Advert</a>
+
+<table>
+
+    <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+    </tr>
+
+
+#foreach($advert in $adverts)
+    <tr>
+    <td><a href="adverts/$advert.getId()">$advert.getTitle()</a></td>
+    <td>$advert.getDescription()</td>
+    <td>$advert.getPrice()</td>
+    <td>$advert.getCategory()</td>
+    #if($advert.getCustomer().getName() ==  $user)
+        <td><a href="adverts/$advert.getId()/delete">Delete</a></td>
+    #end
+    </tr>
+#end
+
+</table>

@@ -1,7 +1,5 @@
 package models;
 
-import models.Advert;
-
 import javax.persistence.*;
 
 @Entity
@@ -9,16 +7,16 @@ import javax.persistence.*;
 public class Comment {
 
     private int id;
-    private User user;
+    private Customer customer;
     private String text;
     private Advert advert;
 
     public Comment() {
     }
 
-    public Comment(String text, User user, Advert advert) {
+    public Comment(String text, Customer customer, Advert advert) {
         this.text = text;
-        this.user = user;
+        this.customer = customer;
         this.advert = advert;
     }
 
@@ -34,14 +32,14 @@ public class Comment {
     }
 
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable = false)
-    public User getUser() {
-        return user;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="customer_id", nullable = false)
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     @Column(name="text")
@@ -54,7 +52,7 @@ public class Comment {
     }
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="advert_id", nullable = false)
     public Advert getAdvert() {
         return advert;

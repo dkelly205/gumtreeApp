@@ -4,6 +4,8 @@ import models.*;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class DBHelper {
@@ -103,7 +105,20 @@ public class DBHelper {
     }
 
 
+    public static List<Category> getAllCategories() {
+        List<Category> categories = new ArrayList<>();
+        Collections.addAll(categories, Category.values());
+        return categories;
+    }
 
-
+    public static Customer getLoggedInUser(String username){
+        List<Customer> customers = getAll(Customer.class);
+        for(Customer customer : customers){
+            if(customer.getName().equals(username)){
+                return customer;
+            }
+        }
+        return null;
+    }
 
 }

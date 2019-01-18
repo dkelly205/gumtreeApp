@@ -17,6 +17,7 @@ import org.hibernate.cfg.Configuration;
         }
 
         public static SessionFactory getSessionFactory() {
+
             return sessionFactory;
         }
     }

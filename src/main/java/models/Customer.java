@@ -2,6 +2,8 @@ package models;
 
 import models.Advert;
 import models.Comment;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 
 import javax.persistence.*;
@@ -9,20 +11,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="users")
-public class User {
+@Table(name="customers")
+public class Customer {
 
     private int id;
     private String name;
+    private String password;
     private List<Advert> adverts;
     private List<Comment> comments;
     private List<Advert> favourites;
 
-    public User() {
+    public Customer() {
     }
 
-    public User(String name) {
+    public Customer(String name, String password) {
         this.name = name;
+        this.password = password;
         this.adverts = new ArrayList<>();
         this.comments = new ArrayList<>();
         this.favourites = new ArrayList<>();
@@ -48,7 +52,16 @@ public class User {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
+    @Column(name="password")
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @OneToMany(mappedBy = "customer", fetch=FetchType.EAGER)
     public List<Advert> getAdverts() {
         return adverts;
     }
@@ -57,7 +70,7 @@ public class User {
         this.adverts = adverts;
     }
 
-    @OneToMany(mappedBy = "user", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
     public List<Comment> getComments() {
         return comments;
     }
@@ -67,6 +80,7 @@ public class User {
     }
 
     @ManyToMany(mappedBy="favouriters")
+    @LazyCollection(LazyCollectionOption.FALSE)
     public List<Advert> getFavourites() {
         return favourites;
     }
@@ -81,6 +95,10 @@ public class User {
 
     public void addAdvert(Advert advert){
         this.adverts.add(advert);
+    }
+
+    public void removeAdvert(Advert advert){
+        this.adverts.remove(advert);
     }
 
     public void addFavourite(Advert advert){

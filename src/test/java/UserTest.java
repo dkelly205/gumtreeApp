@@ -1,6 +1,6 @@
 import models.Advert;
 import models.Comment;
-import models.User;
+import models.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,13 +8,13 @@ import static org.junit.Assert.assertEquals;
 
 public class UserTest {
 
-    User user;
+    Customer user;
     Comment comment;
     Advert advert;
 
     @Before
     public void setUp() throws Exception {
-        user = new User("Danny");
+        user = new Customer("David", "Password123");
         advert = new Advert();
         comment = new Comment("Hello", user, advert);
     }
@@ -22,7 +22,7 @@ public class UserTest {
 
     @Test
     public void hasName() {
-       assertEquals("Danny", user.getName());
+       assertEquals("David", user.getName());
     }
 
     @Test

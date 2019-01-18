@@ -1,0 +1,43 @@
+<form action="/adverts" method="post">
+
+<div class="signup">
+    <h3>
+    <label for="title">Title:</label>
+    <input class="inputbox" type="text" name="title" id="title" required="true">
+    </h3>
+
+    <h3>
+    <label for="description">Description:</label>
+    <input class="inputbox" type="text" name="description" required="true">
+    </h3>
+
+    <h3>
+    <label for="price">Price(£):</label>
+    <input type="number" name="price" required="true" class="inputbox">
+    </h3>
+
+    <h3>
+    <label for="category">Category:</label>
+    <select id="category" name="category">
+        #foreach($category in $categories)
+            <option value="$category">$category</option>
+        #end
+    </select>
+    </h3>
+
+    <h3>
+    <label for="admission-date">Admission Date:</label>
+    <input type="text" name="admission-date" required="true" class="inputbox">
+    </h3>
+
+    <h3>
+    <label for="image">Image:</label>
+    <input id="image" type="text" name="image" required class="inputbox">
+    </h3>
+
+    <input type="submit" value="Save" class="button">
+
+</div>
+</form>
+
+<a href="/adverts">Cancel</a>

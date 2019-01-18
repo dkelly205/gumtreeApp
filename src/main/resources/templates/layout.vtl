@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Gumtree</title>
+    <link rel='stylesheet' href='/styles.css'/>
+</head>
+<body>
+
+
+<div class="header">
+    <h1>Gumtree</h1>
+
+    #if($user != $null)
+        <p>$user</p>
+        <p><a href="/login">Sign Out</a></p>
+
+        <div class="nav">
+            <ul>
+                <li><a href="/adverts">All Adverts</a></li>
+                <li><a href="/user//adverts">My Adverts</a></li>
+                <li><a href="/user//edit">Profile</a></li>
+            </ul>
+        </div>
+    #end
+</div>
+
+<div class="container">
+    #parse( $template )
+</div>
+
+</div class="footer">Contact us</div>
+</body>
+</html>
