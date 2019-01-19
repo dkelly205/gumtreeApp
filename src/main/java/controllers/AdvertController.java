@@ -27,7 +27,9 @@ public class AdvertController {
             List<Advert> adverts = DBHelper.getAll(Advert.class);
             List<Category> categories = DBHelper.getAllCategories();
             String loggedInUser = LoginController.getLoggedInUsername(req, res);
+            Customer customer = DBHelper.getLoggedInUser(loggedInUser);
             model.put("categories", categories);
+            model.put("customer", customer);
             model.put("adverts", adverts);
             model.put("user", loggedInUser);
             model.put("login", "templates/login.vtl");
@@ -40,6 +42,8 @@ public class AdvertController {
             List<Category> categories = DBHelper.getAllCategories();
             model.put("categories", categories);
             model.put("template", "templates/adverts/create.vtl");
+            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            model.put("user", loggedInUser);
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
@@ -47,9 +51,11 @@ public class AdvertController {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
-            List<Comment> comments = advert.getComments();//fetch type lazy
-            model.put("advert", advert);
+            List<Comment> comments = DBHelper.getCommentsInAdvert(advert);
+            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
             model.put("comments", comments);
+            model.put("user", loggedInUser);
+            model.put("advert", advert);
             model.put("template", "templates/adverts/show.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -78,6 +84,8 @@ public class AdvertController {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
+            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            model.put("user", loggedInUser);
             model.put("advert", advert);
             model.put("template", "templates/adverts/delete.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
@@ -88,12 +96,6 @@ public class AdvertController {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
-//            List<Comment> comments = advert.getComments();
-//            if(comments != null) {
-//                for (Comment comment : comments) {
-//                    DBHelper.delete(comment);
-//                }
-//            }
             DBHelper.delete(advert);
             Customer customer = DBHelper.getLoggedInUser(LoginController.getLoggedInUsername(req,res));
             customer.removeAdvert(advert);

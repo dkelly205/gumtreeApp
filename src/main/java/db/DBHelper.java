@@ -111,14 +111,40 @@ public class DBHelper {
         return categories;
     }
 
-    public static Customer getLoggedInUser(String username){
-        List<Customer> customers = getAll(Customer.class);
-        for(Customer customer : customers){
-            if(customer.getName().equals(username)){
-                return customer;
-            }
-        }
-        return null;
+//    public static Customer getLoggedInUser(String username){
+//        List<Customer> customers = getAll(Customer.class);
+//        for(Customer customer : customers){
+//            if(customer.getName().equals(username)){
+//                return customer;
+//            }
+//        }
+//        return null;
+//    }
+
+    public static Customer getLoggedInUser(String username) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        Customer customer = null;
+        Criteria cr = session.createCriteria(Customer.class);
+        cr.add(Restrictions.eq("name", username));
+        customer = getUnique(cr);
+        return customer;
     }
 
+    public static List<Advert> getUsersAdverts(Customer customer){
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Advert> adverts = new ArrayList<>();
+        Criteria cr = session.createCriteria(Advert.class);
+        cr.add(Restrictions.eq("customer", customer));
+        adverts = getList(cr);
+        return adverts;
+    }
+
+    public static List<Comment> getCommentsInAdvert(Advert advert){
+        session = HibernateUtil.getSessionFactory().openSession();
+        List<Comment> comments = new ArrayList<>();
+        Criteria cr = session.createCriteria(Comment.class);
+        cr.add(Restrictions.eq("advert", advert));
+        comments = getList(cr);
+        return comments;
+    }
 }

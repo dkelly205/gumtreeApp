@@ -1,9 +1,14 @@
 <p>$advert.getTitle()</p>
+<p>$advert.getDescription()</p>
+<p>$advert.getPrice()</p>
+<p>$advert.getCategory()</p>
 
 <br>
-
-#foreach($comment in $advert.getComments())
+<p>Comments<p>
+#foreach($comment in $comments)
     <p>$comment.getText()</p>
 #end
 
 
+<br>
+<a href="/adverts">Back</a>

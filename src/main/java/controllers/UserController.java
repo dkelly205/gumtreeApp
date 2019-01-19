@@ -1,11 +1,13 @@
 package controllers;
 
 import db.DBHelper;
+import models.Advert;
 import models.Customer;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static spark.Spark.get;
@@ -37,6 +39,11 @@ public class UserController {
 
         get("users/:id/edit", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(id, Customer.class);
+            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            model.put("user", loggedInUser);
+            model.put("customer", customer);
             model.put("template", "templates/users/edit.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
@@ -44,6 +51,13 @@ public class UserController {
 
         get("users/:id/adverts", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
+            int id = Integer.parseInt(req.params(":id"));
+            Customer customer = DBHelper.find(id, Customer.class);
+            List<Advert> adverts = DBHelper.getUsersAdverts(customer);
+            model.put("adverts", adverts);
+            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            model.put("user", loggedInUser);
+            model.put("customer", customer);
             model.put("template", "templates/users/adverts.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());

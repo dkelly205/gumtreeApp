@@ -1,1 +1,16 @@
 <h3>My Adverts</h3>
+
+<a href="/adverts/create">Create Advert</a>
+
+<table>
+#foreach($advert in $adverts)
+    <tr>
+    <td><a href="adverts/$advert.getId()">$advert.getTitle()</a></td>
+    <td>$advert.getDescription()</td>
+    <td>$advert.getPrice()</td>
+    <td>$advert.getCategory()</td>
+    <td><a href="adverts/$advert.getId()/delete">Delete</a></td>
+    </tr>
+#end
+
+</table>
