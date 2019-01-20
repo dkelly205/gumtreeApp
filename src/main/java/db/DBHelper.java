@@ -111,16 +111,6 @@ public class DBHelper {
         return categories;
     }
 
-//    public static Customer getLoggedInUser(String username){
-//        List<Customer> customers = getAll(Customer.class);
-//        for(Customer customer : customers){
-//            if(customer.getName().equals(username)){
-//                return customer;
-//            }
-//        }
-//        return null;
-//    }
-
     public static Customer getLoggedInUser(String username) {
         session = HibernateUtil.getSessionFactory().openSession();
         Customer customer = null;
@@ -138,6 +128,17 @@ public class DBHelper {
         adverts = getList(cr);
         return adverts;
     }
+
+
+//    //need to get users favourites -- many to many relationship
+//    public static List<Advert> getUsersFavourites(Customer customer){
+//        session = HibernateUtil.getSessionFactory().openSession();
+//        List<Advert> favourites = new ArrayList<>();
+//        Criteria cr = session.createCriteria(Advert.class);
+//       // cr.add(Restrictions.eq("favouriters", customer.getFavourites()));
+//        favourites = getList(cr);
+//        return favourites;
+//    }
 
     public static List<Comment> getCommentsInAdvert(Advert advert){
         session = HibernateUtil.getSessionFactory().openSession();

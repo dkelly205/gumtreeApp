@@ -21,6 +21,8 @@ public class Seeds {
         Comment comment1 = new Comment("Contact number?", user2, advert1);
         Comment comment2 = new Comment("Can you take 10 off the price?", user2, advert1);
 
+
+
         DBHelper.saveOrUpdate(user1);
         DBHelper.saveOrUpdate(user2);
         DBHelper.saveOrUpdate(user3);
@@ -32,5 +34,11 @@ public class Seeds {
 
         DBHelper.saveOrUpdate(comment1);
         DBHelper.saveOrUpdate(comment2);
+
+        user1.addFavourite(advert4);
+        DBHelper.saveOrUpdate(user1);
+        advert4.addCustomerToFavouriters(user1);
+        DBHelper.saveOrUpdate(advert4);
+
     }
 }

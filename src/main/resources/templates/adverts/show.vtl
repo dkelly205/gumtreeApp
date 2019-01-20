@@ -4,11 +4,13 @@
 <p>$advert.getCategory()</p>
 
 <br>
-<p>Comments<p>
-#foreach($comment in $comments)
-    <p>$comment.getText()</p>
-#end
 
+#if($comments.size() > 0)
+    <p>Comments<p>
+    #foreach($comment in $comments)
+        <p>$comment.getText()</p>
+    #end
+#end
 
 <br>
 <a href="/adverts">Back</a>

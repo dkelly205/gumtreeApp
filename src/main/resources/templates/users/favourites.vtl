@@ -1,0 +1,13 @@
+<h3>Favourites</h3>
+
+<table>
+#foreach($advert in $adverts)
+    <tr>
+    <td><a href="adverts/$advert.getId()">$advert.getTitle()</a></td>
+    <td>$advert.getDescription()</td>
+    <td>$advert.getPrice()</td>
+    <td>$advert.getCategory()</td>
+    </tr>
+#end
+
+</table>

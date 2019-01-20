@@ -28,6 +28,7 @@ public class AdvertController {
             List<Category> categories = DBHelper.getAllCategories();
             String loggedInUser = LoginController.getLoggedInUsername(req, res);
             Customer customer = DBHelper.getLoggedInUser(loggedInUser);
+            System.out.println(customer.getName());
             model.put("categories", categories);
             model.put("customer", customer);
             model.put("adverts", adverts);
@@ -40,10 +41,12 @@ public class AdvertController {
         get("/adverts/create", (req, res) -> {
             Map<String, Object> model = new HashMap<>();
             List<Category> categories = DBHelper.getAllCategories();
-            model.put("categories", categories);
-            model.put("template", "templates/adverts/create.vtl");
             String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
             model.put("user", loggedInUser);
+            model.put("categories", categories);
+            Customer customer = DBHelper.getLoggedInUser(loggedInUser);
+            model.put("customer", customer);
+            model.put("template", "templates/adverts/create.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
