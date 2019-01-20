@@ -80,9 +80,6 @@ public class AdvertController {
         }, new VelocityTemplateEngine());
 
 
-
-
-
         get("/adverts/:id/delete", (req,res) ->{
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
@@ -108,14 +105,7 @@ public class AdvertController {
         }, new VelocityTemplateEngine());
 
 
-//
-//        get("/adverts/filtered", (req, res) ->{
-//            Map<String, Object> model = new HashMap<>();
-//            //String category = req.queryParams(Category.valueOf("category"));
-//            //model.put();
-//            //model.put();
-//            return new ModelAndView(model, "templates/layout.vtl");
-//        }, new VelocityTemplateEngine());
+
 
 
 

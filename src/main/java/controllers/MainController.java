@@ -20,6 +20,7 @@ public class MainController {
         AdvertController advertController = new AdvertController();
         LoginController loginController = new LoginController();
         UserController userController = new UserController();
+        CommentController commentController = new CommentController();
 
 
         get("/adverts", (req, res) -> {
