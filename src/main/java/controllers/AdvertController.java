@@ -55,7 +55,9 @@ public class AdvertController {
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
             List<Comment> comments = DBHelper.getCommentsInAdvert(advert);
-            String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            String loggedInUser = LoginController.getLoggedInUsername(req, res);
+            Customer customer = DBHelper.getLoggedInUser(loggedInUser);
+            model.put("customer", customer);
             model.put("comments", comments);
             model.put("user", loggedInUser);
             model.put("advert", advert);

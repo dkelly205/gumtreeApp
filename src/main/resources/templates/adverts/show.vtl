@@ -3,12 +3,30 @@
 <p>$advert.getPrice()</p>
 <p>$advert.getCategory()</p>
 
+
+<form action="/customers/$customer.getId()/addToFavourites", method="post">
+    <input type="submit" value="Add To Favourites" class="button">
+</form>
+
+#foreach($favourite in $customer.getFavourites())
+    #if($favourite.getId() == $advert.getId())
+        <form action="/customers/$customer.getId()/removeFromFavourites", method="post">
+            <input type="submit" value="Remove From Favourites" class="button">
+        </form>
+    #end
+#end
+
 <br>
 
 #if($comments.size() > 0)
     <p>Comments<p>
     #foreach($comment in $comments)
         <p>$comment.getText()</p>
+        #if($comment.getCustomer().getId() == $customer.getId())
+            <form action="/comments/$comment.getId()/delete" method="post">
+                <input type="submit" value="Delete" class="button">
+            </form>
+        #end
     #end
 #end
 
@@ -24,6 +42,9 @@
  </h3>
 
 <input type="submit" value="Save" class="button">
+
+
+
 
 </form>
 <br><br>

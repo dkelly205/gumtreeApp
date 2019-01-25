@@ -36,6 +36,15 @@ public class CommentController {
             res.redirect(req.headers("referer"));
             return null;
         }, new VelocityTemplateEngine());
+
+
+        post("/comments/:id/delete", (req, res) ->{
+            Integer id = Integer.parseInt(req.params("id"));
+            Comment comment = DBHelper.find(id, Comment.class);
+            DBHelper.delete(comment);
+            res.redirect(req.headers("referer"));
+            return null;
+        }, new VelocityTemplateEngine());
     }
 
 }
