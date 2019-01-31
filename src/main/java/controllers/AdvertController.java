@@ -8,6 +8,7 @@ import models.Comment;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +58,9 @@ public class AdvertController {
             List<Comment> comments = DBHelper.getCommentsInAdvert(advert);
             String loggedInUser = LoginController.getLoggedInUsername(req, res);
             Customer customer = DBHelper.getLoggedInUser(loggedInUser);
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+            String date = sdf.format(advert.getAdmissionDate());
+            model.put("date", date);
             model.put("customer", customer);
             model.put("comments", comments);
             model.put("user", loggedInUser);

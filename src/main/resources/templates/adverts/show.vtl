@@ -1,7 +1,8 @@
-<p>$advert.getTitle()</p>
-<p>$advert.getDescription()</p>
-<p>$advert.getPrice()</p>
-<p>$advert.getCategory()</p>
+<p>Title: $advert.getTitle()</p>
+<p>Description: $advert.getDescription()</p>
+<p>Price: $advert.getPrice()</p>
+<p>Category: $advert.getCategory()</p>
+<p>Admission Date: $date</p>
 
 ##check if the arraylist contains the value.  If it doesnt then give option to add to favourites
 ##<form action="/users/$customer.getId()/addToFavourites", method="post">
@@ -49,7 +50,13 @@
     </form>
 </div>
 <br><br>
-<a href="/adverts">Back</a>
+
+ <button id="back-button", onclick="goBack()">Back</button>
+        <script>
+        function goBack() {
+            window.history.back();
+        }
+        </script>
 
 
 
@@ -64,3 +71,6 @@ function hideOrShowComments() {
   }
 }
 </script>
+
+
+

@@ -1,8 +1,5 @@
 package models;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -95,11 +92,11 @@ public class Advert {
     }
 
     @Column(name="admission_date")
-    public Date getAdmission_date() {
+    public Date getAdmissionDate() {
         return admission_date;
     }
 
-    public void setAdmission_date(Date admission_date) {
+    public void setAdmissionDate(Date admission_date) {
         this.admission_date = admission_date;
     }
 

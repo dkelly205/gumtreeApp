@@ -1,8 +1,5 @@
 <h2>Register</h2>
 
-<a href="/login">Back</a>
-
-
 
 <form action="/users" method="post">
 <div class="signup">
@@ -19,3 +16,12 @@
 
 </div>
 </form>
+
+
+
+ <button id="back-button", onclick="goBack()">Back</button>
+        <script>
+        function goBack() {
+            window.history.back();
+        }
+        </script>

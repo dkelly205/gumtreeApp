@@ -92,7 +92,7 @@ public class UserController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
-
+//can't get this to work - many to many
         post("/users/:id/removeFromFavourites", (req,res)->{
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
@@ -102,6 +102,7 @@ public class UserController {
             res.redirect(req.headers("referer"));
             return null;
         }, new VelocityTemplateEngine());
+
 
 
 

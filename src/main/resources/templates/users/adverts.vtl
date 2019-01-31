@@ -5,12 +5,27 @@
 <table>
 #foreach($advert in $adverts)
     <tr>
-    <td><a href="adverts/$advert.getId()">$advert.getTitle()</a></td>
-    <td>$advert.getDescription()</td>
-    <td>$advert.getPrice()</td>
-    <td>$advert.getCategory()</td>
-    <td><a href="adverts/$advert.getId()/delete">Delete</a></td>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Category</th>
+        <th></th>
+    </tr>
+
+    <tr>
+        <td><a href="/adverts/$advert.getId()">$advert.getTitle()</a></td>
+        <td>$advert.getDescription()</td>
+        <td>$advert.getPrice()</td>
+        <td>$advert.getCategory()</td>
+        <td><a href="/adverts/$advert.getId()/delete">Delete</a></td>
     </tr>
 #end
 
 </table>
+
+ <button id="back-button", onclick="goBack()">Back</button>
+        <script>
+        function goBack() {
+            window.history.back();
+        }
+        </script>

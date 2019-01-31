@@ -51,7 +51,7 @@ public class AdvertTest {
 
     @Test
     public void hasAdmissionDate() {
-        assertEquals(now, advert.getAdmission_date());
+        assertEquals(now, advert.getAdmissionDate());
     }
 
     @Test
