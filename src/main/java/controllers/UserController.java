@@ -82,13 +82,25 @@ public class UserController {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Customer customer = DBHelper.find(id, Customer.class);
-            List<Advert> adverts = customer.getFavourites();
+            List<Advert> adverts = DBHelper.getUsersFavourites(customer);
+            System.out.println("Number of favourties: " + adverts.size());
             model.put("adverts", adverts);
             String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
             model.put("user", loggedInUser);
             model.put("customer", customer);
             model.put("template", "templates/users/favourites.vtl");
             return new ModelAndView(model, "templates/layout.vtl");
+        }, new VelocityTemplateEngine());
+
+
+        post("/users/:id/removeFromFavourites", (req,res)->{
+            int id = Integer.parseInt(req.params(":id"));
+            Advert advert = DBHelper.find(id, Advert.class);
+            String username = LoginController.getLoggedInUsername(req,res);
+            Customer customer = DBHelper.getLoggedInUser(username);
+            DBHelper.removeAdvertFromFavourites(customer, advert);
+            res.redirect(req.headers("referer"));
+            return null;
         }, new VelocityTemplateEngine());
 
 

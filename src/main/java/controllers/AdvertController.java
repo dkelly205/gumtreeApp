@@ -8,6 +8,7 @@ import models.Comment;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,6 @@ public class AdvertController {
             List<Category> categories = DBHelper.getAllCategories();
             String loggedInUser = LoginController.getLoggedInUsername(req, res);
             Customer customer = DBHelper.getLoggedInUser(loggedInUser);
-            System.out.println(customer.getName());
             model.put("categories", categories);
             model.put("customer", customer);
             model.put("adverts", adverts);
@@ -71,9 +71,9 @@ public class AdvertController {
             double price = Double.parseDouble(req.queryParams("price"));
             Category category = Category.valueOf(req.queryParams("category"));
             String image = req.queryParams("image");
-            String admission_date = req.queryParams("admission_date");
+            Date now = new Date();
             Customer customer = DBHelper.getLoggedInUser(LoginController.getLoggedInUsername(req, res));
-            Advert advert = new Advert(title, description, price, category, image, admission_date, customer);
+            Advert advert = new Advert(title, description, price, category, image, now, customer);
             DBHelper.saveOrUpdate(advert);
             customer.addAdvert(advert);
             DBHelper.saveOrUpdate(customer);

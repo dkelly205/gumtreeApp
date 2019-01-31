@@ -5,6 +5,8 @@ import models.Customer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Date;
+
 import static org.junit.Assert.assertEquals;
 
 public class CommentTest {
@@ -12,11 +14,12 @@ public class CommentTest {
     Customer customer;
     Advert advert;
     Comment comment;
+    Date now;
 
     @Before
     public void setUp() throws Exception {
         customer = new Customer("Danny", "password");
-        advert = new Advert("Bike", "BMX", 50.00, Category.SPORTS, "n/a", "01/06/2018", customer);
+        advert = new Advert("Bike", "BMX", 50.00, Category.SPORTS, "n/a", now, customer);
         comment = new Comment("Hello", customer, advert);
     }
 

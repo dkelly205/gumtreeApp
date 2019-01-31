@@ -7,6 +7,12 @@
     <td>$advert.getDescription()</td>
     <td>$advert.getPrice()</td>
     <td>$advert.getCategory()</td>
+    <td>
+        <form action="/users/$advert.getId()/removeFromFavourites", method="post">
+                    <input type="submit" value="Remove" class="button">
+         </form>
+
+    </td>
     </tr>
 #end
 

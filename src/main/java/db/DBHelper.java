@@ -129,17 +129,6 @@ public class DBHelper {
         return adverts;
     }
 
-
-//    //need to get users favourites -- many to many relationship
-//    public static List<Advert> getUsersFavourites(Customer customer){
-//        session = HibernateUtil.getSessionFactory().openSession();
-//        List<Advert> favourites = new ArrayList<>();
-//        Criteria cr = session.createCriteria(Advert.class);
-//       // cr.add(Restrictions.eq("favouriters", customer.getFavourites()));
-//        favourites = getList(cr);
-//        return favourites;
-//    }
-
     public static List<Comment> getCommentsInAdvert(Advert advert){
         session = HibernateUtil.getSessionFactory().openSession();
         List<Comment> comments = new ArrayList<>();
@@ -148,4 +137,38 @@ public class DBHelper {
         comments = getList(cr);
         return comments;
     }
+
+
+    //method to get users favourites -many to many
+    public static List<Advert> getUsersFavourites(Customer customer){
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.refresh(customer);
+        Hibernate.initialize(customer.getFavourites());
+        session.close();
+        return customer.getFavourites();
+    }
+
+    //method to get favouriters -many to many
+    public static List<Customer> getFavouriters(Advert advert){
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.refresh(advert);
+        Hibernate.initialize(advert.getFavouriters());
+        session.close();
+        return advert.getFavouriters();
+    }
+
+    //method to remove users favourite - many to many
+    public static void removeAdvertFromFavourites(Customer customer, Advert advert){
+        session = HibernateUtil.getSessionFactory().openSession();
+        session.refresh(customer);
+        customer.removeFavourite(advert);
+        session.close();
+        saveOrUpdate(customer);
+    }
+
+    //method to get users who have favourited the advert - many to many
+
+
+
+
 }

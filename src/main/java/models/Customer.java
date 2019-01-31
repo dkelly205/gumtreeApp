@@ -79,8 +79,10 @@ public class Customer {
         this.comments = comments;
     }
 
-    @ManyToMany(mappedBy="favouriters")
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name="favourite_adverts",
+            joinColumns = {@JoinColumn(name="customer_id", nullable=false, updatable=false)},
+            inverseJoinColumns = {@JoinColumn(name="advert_id", nullable=false, updatable=false)})
     public List<Advert> getFavourites() {
         return favourites;
     }
@@ -103,5 +105,9 @@ public class Customer {
 
     public void addFavourite(Advert advert){
         this.favourites.add(advert);
+    }
+
+    public void removeFavourite(Advert advert) {
+        this.favourites.remove(advert);
     }
 }

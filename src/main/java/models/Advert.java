@@ -5,6 +5,7 @@ import org.hibernate.annotations.LazyCollectionOption;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Advert {
     private double price;
     private Category category;
     private String image;
-    private String admission_date;
+    private Date admission_date;
     private Customer customer;
     private List<Comment> comments;
     private List<Customer> favouriters;
@@ -25,7 +26,7 @@ public class Advert {
     public Advert() {
     }
 
-    public Advert(String title, String description, double price, Category category, String image, String admission_date, Customer customer) {
+    public Advert(String title, String description, double price, Category category, String image, Date admission_date, Customer customer) {
         this.title = title;
         this.description = description;
         this.price = price;
@@ -94,11 +95,11 @@ public class Advert {
     }
 
     @Column(name="admission_date")
-    public String getAdmission_date() {
+    public Date getAdmission_date() {
         return admission_date;
     }
 
-    public void setAdmission_date(String admission_date) {
+    public void setAdmission_date(Date admission_date) {
         this.admission_date = admission_date;
     }
 
@@ -122,11 +123,7 @@ public class Advert {
         this.comments = comments;
     }
 
-    @ManyToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name="favourite_adverts",
-            joinColumns = {@JoinColumn(name="advert_id", nullable=false, updatable=false)},
-            inverseJoinColumns = {@JoinColumn(name="customer_id", nullable=false, updatable=false)})
-    @LazyCollection(LazyCollectionOption.FALSE)
+    @ManyToMany(mappedBy = "favourites", cascade={CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     public List<Customer> getFavouriters() {
         return favouriters;
     }
@@ -142,6 +139,8 @@ public class Advert {
     public void addCustomerToFavouriters(Customer customer){
         this.favouriters.add(customer);
     }
+
+    public void removeCustomerFromFavouriters(Customer customer) { this.favouriters.remove(customer);}
 
 
 }

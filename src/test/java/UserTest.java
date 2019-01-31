@@ -43,4 +43,11 @@ public class UserTest {
         user.addFavourite(advert);
         assertEquals(1, user.getFavourites().size() );
     }
+
+    @Test
+    public void canRemoveFavourite(){
+        user.addFavourite(advert);
+        user.removeFavourite(advert);
+        assertEquals(0, user.getFavourites().size());
+    }
 }

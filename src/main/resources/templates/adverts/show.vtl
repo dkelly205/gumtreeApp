@@ -3,49 +3,64 @@
 <p>$advert.getPrice()</p>
 <p>$advert.getCategory()</p>
 
+##check if the arraylist contains the value.  If it doesnt then give option to add to favourites
+##<form action="/users/$customer.getId()/addToFavourites", method="post">
+###\foreach($favourite in $customer.getFavourites())
+##if($advert.getId() != $favourite.getId())
+ ##   <input type="submit" value="Add To Favourites" class="button">
+##end
+##end
+##</form>
 
-<form action="/customers/$customer.getId()/addToFavourites", method="post">
-    <input type="submit" value="Add To Favourites" class="button">
-</form>
-
-#foreach($favourite in $customer.getFavourites())
-    #if($favourite.getId() == $advert.getId())
-        <form action="/customers/$customer.getId()/removeFromFavourites", method="post">
-            <input type="submit" value="Remove From Favourites" class="button">
-        </form>
-    #end
-#end
+##foreach($favourite in $customer.getFavourites())
+    ##if($favourite.getId() == $advert.getId())
+        ##<form action="/users/$advert.getId()/removeFromFavourites", method="post">
+            ##<input type="submit" value="Remove From Favourites" class="button">
+        ##</form>
+    ##end
+##end
 
 <br>
 
-#if($comments.size() > 0)
-    <p>Comments<p>
-    #foreach($comment in $comments)
-        <p>$comment.getText()</p>
-        #if($comment.getCustomer().getId() == $customer.getId())
-            <form action="/comments/$comment.getId()/delete" method="post">
-                <input type="submit" value="Delete" class="button">
-            </form>
+<button onclick="hideOrShowComments()">Comments</button>
+
+<div id="commentContainer" style="display:none">
+    #if($comments.size() > 0)
+        <p>Comments<p>
+        #foreach($comment in $comments)
+            <p>$comment.getText()</p>
+            #if($comment.getCustomer().getId() == $customer.getId())
+                <form action="/comments/$comment.getId()/delete" method="post">
+                    <input type="submit" value="Delete" class="button">
+                </form>
+            #end
         #end
     #end
-#end
+    <br><br>
 
-<br>
+    <form action="/adverts/$advert.getId()/comment" method="post">
+        <h3>
+            <label for="comment">Comment:</label>
+             <input class="inputbox" type="text" name="comment" required="true">
+        </h3>
 
+        <input type="submit" value="Save" class="button">
 
-<br>
-
-<form action="/adverts/$advert.getId()/comment" method="post">
- <h3>
-    <label for="comment">Comment:</label>
-    <input class="inputbox" type="text" name="comment" required="true">
- </h3>
-
-<input type="submit" value="Save" class="button">
-
-
-
-
-</form>
+    </form>
+</div>
 <br><br>
 <a href="/adverts">Back</a>
+
+
+
+
+<script>
+function hideOrShowComments() {
+  var x = document.getElementById("commentContainer");
+  if (x.style.display === "none") {
+    x.style.display = "block";
+  } else {
+    x.style.display = "none";
+  }
+}
+</script>
