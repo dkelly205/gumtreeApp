@@ -106,7 +106,7 @@ public class AdvertController {
             Customer customer = DBHelper.getLoggedInUser(LoginController.getLoggedInUsername(req,res));
             customer.removeAdvert(advert);
             DBHelper.saveOrUpdate(customer);
-            res.redirect("/adverts");
+            res.redirect(req.headers("referer"));
             return null;
         }, new VelocityTemplateEngine());
 
