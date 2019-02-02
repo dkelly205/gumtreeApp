@@ -3,7 +3,6 @@ package models;
 import models.Advert;
 import models.Comment;
 import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
 
 
 import javax.persistence.*;

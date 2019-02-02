@@ -6,6 +6,7 @@ import models.Customer;
 import spark.ModelAndView;
 import spark.template.velocity.VelocityTemplateEngine;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -71,6 +72,8 @@ public class UserController {
             List<Advert> adverts = DBHelper.getUsersAdverts(customer);
             model.put("adverts", adverts);
             String loggedInUser = LoginController.getLoggedInUsername(req, res); // NEW
+            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yy");
+            model.put("sdf", sdf);
             model.put("user", loggedInUser);
             model.put("customer", customer);
             model.put("template", "templates/users/adverts.vtl");
@@ -99,6 +102,7 @@ public class UserController {
             String username = LoginController.getLoggedInUsername(req,res);
             Customer customer = DBHelper.getLoggedInUser(username);
             DBHelper.removeAdvertFromFavourites(customer, advert);
+            DBHelper.removeCustomerFromFavouriters(customer, advert);
             res.redirect(req.headers("referer"));
             return null;
         }, new VelocityTemplateEngine());

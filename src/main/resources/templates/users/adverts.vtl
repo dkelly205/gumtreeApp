@@ -9,6 +9,7 @@
         <th>Description</th>
         <th>Price</th>
         <th>Category</th>
+        <th>Date Added</th>
         <th></th>
     </tr>
 
@@ -17,6 +18,7 @@
         <td>$advert.getDescription()</td>
         <td>$advert.getPrice()</td>
         <td>$advert.getCategory()</td>
+        <td><input id="addDate" type="text" value="$sdf.format($advert.getAdmissionDate())"/></td>
         <td><a href="/adverts/$advert.getId()/delete">Delete</a></td>
     </tr>
 #end

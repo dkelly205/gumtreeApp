@@ -40,6 +40,7 @@ public class Seeds {
         DBHelper.saveOrUpdate(comment2);
 
         user1.addFavourite(advert4);
+        advert4.addCustomerToFavouriters(user1);
         DBHelper.saveOrUpdate(user1);
         DBHelper.saveOrUpdate(advert4);
 

@@ -160,10 +160,52 @@ public class DBHelper {
     //method to remove users favourite - many to many
     public static void removeAdvertFromFavourites(Customer customer, Advert advert){
         session = HibernateUtil.getSessionFactory().openSession();
-        session.refresh(customer);
-        customer.removeFavourite(advert);
-        session.close();
-        saveOrUpdate(customer);
+        try {
+            transaction = session.beginTransaction();
+            session.refresh(customer);
+            List <Advert> favourites = customer.getFavourites();
+            List<Advert> advertsToRemove = new ArrayList<>();
+            for(Advert favourite : favourites){
+                if(advert.getId() == favourite.getId()){
+                    advertsToRemove.add(favourite);
+                }
+            }
+            favourites.removeAll(advertsToRemove);
+            System.out.println(customer.getFavourites().size());
+            transaction.commit();
+        }
+        catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+    }
+
+
+    public static void removeCustomerFromFavouriters(Customer customer, Advert advert){
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.refresh(advert);
+            List<Customer> favouriters = advert.getFavouriters();
+            List<Customer> customersToRemove = new ArrayList<>();
+            for(Customer user : favouriters) {
+                if (user.getId() == customer.getId()) {
+                    customersToRemove.add(user);
+                }
+            }
+            favouriters.removeAll(customersToRemove);
+            System.out.print(advert.getFavouriters().size());
+            transaction.commit();
+        }
+        catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
     }
 
     //method to get users who have favourited the advert - many to many
