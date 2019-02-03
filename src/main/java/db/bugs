@@ -1,0 +1,8 @@
+1. Delete adverts not working properly. --sorted
+
+2. if someone has favourited the advert then it wont let you delete.
+
+will need to clear the favouriters in the advert class
+
+
+

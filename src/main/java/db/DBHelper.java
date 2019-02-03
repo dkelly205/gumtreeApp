@@ -4,6 +4,7 @@ import models.*;
 import org.hibernate.*;
 import org.hibernate.criterion.Restrictions;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -139,7 +140,7 @@ public class DBHelper {
     }
 
 
-    //method to get users favourites -many to many
+
     public static List<Advert> getUsersFavourites(Customer customer){
         session = HibernateUtil.getSessionFactory().openSession();
         session.refresh(customer);
@@ -148,7 +149,7 @@ public class DBHelper {
         return customer.getFavourites();
     }
 
-    //method to get favouriters -many to many
+
     public static List<Customer> getFavouriters(Advert advert){
         session = HibernateUtil.getSessionFactory().openSession();
         session.refresh(advert);
@@ -157,7 +158,7 @@ public class DBHelper {
         return advert.getFavouriters();
     }
 
-    //method to remove users favourite - many to many
+
     public static void removeAdvertFromFavourites(Customer customer, Advert advert){
         session = HibernateUtil.getSessionFactory().openSession();
         try {
@@ -208,8 +209,26 @@ public class DBHelper {
         }
     }
 
-    //method to get users who have favourited the advert - many to many
 
+    public static void removeAllFavouriters(Advert advert){
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.refresh(advert);
+            List<Customer> favouriters = advert.getFavouriters();
+            for(Customer customer : favouriters){
+               customer.removeFavourite(advert);
+            }
+            advert.removeAllFavouriters();
+            transaction.commit();
+        }
+        catch (HibernateException e) {
+        transaction.rollback();
+        e.printStackTrace();
+        } finally {
+        session.close();
+        }
+    }
 
 
 

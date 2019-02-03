@@ -102,13 +102,12 @@ public class AdvertController {
             Map<String, Object> model = new HashMap<>();
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
+            DBHelper.removeAllFavouriters(advert);
             DBHelper.delete(advert);
-            Customer customer = DBHelper.getLoggedInUser(LoginController.getLoggedInUsername(req,res));
-            customer.removeAdvert(advert);
-            DBHelper.saveOrUpdate(customer);
-            res.redirect(req.headers("referer"));
+            res.redirect("/adverts");
             return null;
         }, new VelocityTemplateEngine());
+
 
 
 

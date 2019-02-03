@@ -139,5 +139,9 @@ public class Advert {
 
     public void removeCustomerFromFavouriters(Customer customer) { this.favouriters.remove(customer);}
 
+    public void removeAllFavouriters(){
+        this.favouriters.clear();
+    }
+
 
 }
