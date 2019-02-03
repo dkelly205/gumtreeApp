@@ -4,22 +4,6 @@
 <p>Category: $advert.getCategory()</p>
 <p>Admission Date: $date</p>
 
-##check if the arraylist contains the value.  If it doesnt then give option to add to favourites
-##<form action="/users/$customer.getId()/addToFavourites", method="post">
-###\foreach($favourite in $customer.getFavourites())
-##if($advert.getId() != $favourite.getId())
- ##   <input type="submit" value="Add To Favourites" class="button">
-##end
-##end
-##</form>
-
-##foreach($favourite in $customer.getFavourites())
-    ##if($favourite.getId() == $advert.getId())
-        ##<form action="/users/$advert.getId()/removeFromFavourites", method="post">
-            ##<input type="submit" value="Remove From Favourites" class="button">
-        ##</form>
-    ##end
-##end
 
 <br>
 

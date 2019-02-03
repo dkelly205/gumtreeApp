@@ -2,7 +2,14 @@
 
 2. if someone has favourited the advert then it wont let you delete.
 
-will need to clear the favouriters in the advert class
+will need to clear the favouriters in the advert class -- sorted
+
+3.Need to give users the option to add advert to favourites  --sorted
+
+4. Add favourites option should be removed if it has been added already -- need to add logic to index.vtl
+
+
+
 
 
 

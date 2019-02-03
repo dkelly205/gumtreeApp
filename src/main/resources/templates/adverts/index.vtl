@@ -19,6 +19,18 @@
     #if($advert.getCustomer().getName() ==  $user)
         <td><a href="adverts/$advert.getId()/delete">Delete</a></td>
     #end
+
+    #if($advert.getCustomer().getName() !=  $user)
+
+        #if(!$favourites.contains($advert))
+            <form method="post" action="users/$advert.getId()/addToFavourites">
+                <td> <input type="submit" value="Add To Favourites" class="button" id="addToFavourite"></td>
+            </form>
+
+         #end
+
+     #end
+
     </tr>
 #end
 

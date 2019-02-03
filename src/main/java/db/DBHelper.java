@@ -230,6 +230,38 @@ public class DBHelper {
         }
     }
 
+    public static void addAdvertToFavourites(Advert advert, Customer customer){
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.refresh(customer);
+            customer.addFavourite(advert);
+            transaction.commit();
+        }
+        catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
+    public static void addCustomerToFavouriters(Advert advert, Customer customer){
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            transaction = session.beginTransaction();
+            session.refresh(advert);
+            advert.addCustomerToFavouriters(customer);
+            transaction.commit();
+        }
+        catch (HibernateException e) {
+            transaction.rollback();
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+    }
+
 
 
 }

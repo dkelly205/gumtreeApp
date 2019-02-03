@@ -30,6 +30,8 @@ public class AdvertController {
             List<Category> categories = DBHelper.getAllCategories();
             String loggedInUser = LoginController.getLoggedInUsername(req, res);
             Customer customer = DBHelper.getLoggedInUser(loggedInUser);
+            List<Advert> favourites = DBHelper.getUsersFavourites(customer);
+            model.put("favourites", favourites);
             model.put("categories", categories);
             model.put("customer", customer);
             model.put("adverts", adverts);

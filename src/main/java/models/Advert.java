@@ -143,5 +143,22 @@ public class Advert {
         this.favouriters.clear();
     }
 
+    @Override
+    public boolean equals(Object obj){
+        if (obj == this)  return true;
+
+        if(obj == null) return false;
+
+        if(this.getClass() != obj.getClass()) return false;
+
+        Advert other = (Advert) obj;
+
+        if(this.id != other.id) return false;
+
+        return true;
+
+
+    }
+
 
 }

@@ -95,7 +95,6 @@ public class UserController {
             return new ModelAndView(model, "templates/layout.vtl");
         }, new VelocityTemplateEngine());
 
-//can't get this to work - many to many
         post("/users/:id/removeFromFavourites", (req,res)->{
             int id = Integer.parseInt(req.params(":id"));
             Advert advert = DBHelper.find(id, Advert.class);
@@ -103,6 +102,17 @@ public class UserController {
             Customer customer = DBHelper.getLoggedInUser(username);
             DBHelper.removeAdvertFromFavourites(customer, advert);
             DBHelper.removeCustomerFromFavouriters(customer, advert);
+            res.redirect(req.headers("referer"));
+            return null;
+        }, new VelocityTemplateEngine());
+
+        post("/users/:id/addToFavourites", (req,res)->{
+            int id = Integer.parseInt(req.params(":id"));
+            Advert advert = DBHelper.find(id, Advert.class);
+            String username = LoginController.getLoggedInUsername(req,res);
+            Customer customer = DBHelper.getLoggedInUser(username);
+            DBHelper.addAdvertToFavourites(advert, customer);
+            DBHelper.addCustomerToFavouriters(advert, customer);
             res.redirect(req.headers("referer"));
             return null;
         }, new VelocityTemplateEngine());
